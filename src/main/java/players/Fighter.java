@@ -50,5 +50,10 @@ public class Fighter extends Player {
 
     public void setCurrentWeapon(Weapon currentWeapon) {
         this.currentWeapon = currentWeapon;
+        this.removeWeapon(this.currentWeapon);
+    }
+
+    public void useWeapon(Player player){
+        currentWeapon.attack(player);
     }
 }

@@ -50,5 +50,10 @@ public class Cleric extends Player{
 
     public void setCurrentPotion(Potion currentPotion) {
         this.currentPotion = currentPotion;
+        removePotion(this.currentPotion);
+    }
+
+    public void usePotion(Player player){
+        this.currentPotion.heal(player);
     }
 }

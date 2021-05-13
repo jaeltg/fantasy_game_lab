@@ -15,4 +15,7 @@ public class Enemy extends Fighter{
         this.weapons = new ArrayList<>();
         this.currentWeapon = null;
     }
+
+
+
 }

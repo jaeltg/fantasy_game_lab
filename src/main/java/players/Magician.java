@@ -29,12 +29,20 @@ public class Magician extends Player {
         }
     }
 
+    public void useSpell(Enemy enemy){
+        currentSpell.attack(enemy);
+    }
+
     public void addSpell(Spell spell){
         spells.add(spell);
     }
 
     public String getType() {
         return type;
+    }
+
+    public Creature getCreature() {
+        return creature;
     }
 
     public ArrayList<Spell> getSpells() {
