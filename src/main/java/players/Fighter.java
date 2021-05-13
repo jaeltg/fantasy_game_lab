@@ -1,21 +1,27 @@
 package players;
 
+import behaviours.ICollect;
+import rooms.Room;
+import rooms.Treasure;
 import tools.Spell;
 import tools.Weapon;
 
 import java.util.ArrayList;
 
-public class Fighter extends Player {
+public class Fighter extends Player implements ICollect {
     private int healthPoints;
     private String type;
     private ArrayList<Weapon> weapons;
     private Weapon currentWeapon;
+
+    private ArrayList<Treasure> treasures;
 
     public Fighter(String type, int healthPoints){
         super(healthPoints);
         this.type = type;
         this.weapons = new ArrayList<>();
         this.currentWeapon = null;
+        this.treasures = new ArrayList<>();
     }
 
     public void addWeapon(Weapon weapon){
@@ -53,7 +59,18 @@ public class Fighter extends Player {
         this.removeWeapon(this.currentWeapon);
     }
 
+    public ArrayList<Treasure> getTreasures() {
+        return treasures;
+    }
+
     public void useWeapon(Player player){
         currentWeapon.attack(player);
+    }
+
+    public void collectTreasure(Room room) {
+        if (room.getEnemy().getHealthPoints() == 0){
+            this.treasures.add(room.getTreasure());
+            room.getTreasure().setCollected(true);
+        }
     }
 }

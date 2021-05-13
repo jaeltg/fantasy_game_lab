@@ -1,17 +1,22 @@
 package players;
 
+import behaviours.ICollect;
+import rooms.Room;
+import rooms.Treasure;
 import tools.Creature;
 import tools.Spell;
 import tools.Weapon;
 
 import java.util.ArrayList;
 
-public class Magician extends Player {
+public class Magician extends Player implements ICollect {
     private int healthPoints;
     private String type;
     private ArrayList<Spell> spells;
     private Spell currentSpell;
     private Creature creature;
+
+    private ArrayList<Treasure> treasures;
 
     public Magician(String type, int healthPoints, Creature creature) {
         super(healthPoints);
@@ -19,6 +24,8 @@ public class Magician extends Player {
         this.spells = new ArrayList<>();
         this.currentSpell = null;
         this.creature = creature;
+        this.treasures = new ArrayList<>();
+
     }
 
     public void changeSpell(Spell spell) {
@@ -56,6 +63,19 @@ public class Magician extends Player {
     public void setCurrentSpell(Spell currentSpell) {
         this.currentSpell = currentSpell;
     }
+
+    public void collectTreasure(Room room) {
+        if (room.getEnemy().getHealthPoints() == 0){
+            this.treasures.add(room.getTreasure());
+            room.getTreasure().setCollected(true);
+        }
+
+    }
+
+    public ArrayList<Treasure> getTreasures() {
+        return treasures;
+    }
+
 
 
 }

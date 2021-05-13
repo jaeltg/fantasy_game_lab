@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 import players.*;
+import rooms.Room;
+import rooms.Treasure;
 import tools.Creature;
 import tools.Potion;
 import tools.Spell;
@@ -24,6 +26,8 @@ public class PlayerTest {
     Potion potion1;
     Potion potion2;
     Potion potion3;
+    Room room1;
+    Treasure treasure1;
 
     @Before
     public void setUp(){
@@ -41,6 +45,8 @@ public class PlayerTest {
         magician1 = new Magician("Wizard", 30, creature1);
         cleric1 = new Cleric("Cleric", 40);
         enemy1 = new Enemy("Orc",50);
+        treasure1 = new Treasure("Gold", 1000);
+        room1 = new Room("Golden Room", treasure1, enemy1);
 
     }
 
@@ -102,5 +108,25 @@ public class PlayerTest {
         enemy1.useWeapon(magician1);
         magician1.getCreature().protect(magician1);
         assertEquals(30, magician1.getHealthPoints());
+    }
+
+    @Test
+    public void canCollectTreasure(){
+        Enemy enemy = new Enemy("Orc", 10);
+        Room room = new Room("Golden Room", treasure1, enemy);
+        fighter1.addWeapon(weapon1);
+        fighter1.setCurrentWeapon(weapon1);
+        fighter1.useWeapon(enemy);
+        fighter1.collectTreasure(room);
+        assertEquals(1, fighter1.getTreasures().size());
+    }
+
+    @Test
+    public void cantCollectTreasure(){
+        fighter1.addWeapon(weapon1);
+        fighter1.setCurrentWeapon(weapon1);
+        fighter1.useWeapon(enemy1);
+        fighter1.collectTreasure(room1);
+        assertEquals(0, fighter1.getTreasures().size());
     }
 }

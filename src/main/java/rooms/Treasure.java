@@ -8,7 +8,7 @@ public class Treasure {
     private int value;
     private boolean collected;
 
-    public Treasure(String type, int value, boolean collected){
+    public Treasure(String type, int value){
         this.type = type;
         this.value = value;
         this.collected = false;
